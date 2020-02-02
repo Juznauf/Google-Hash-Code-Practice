@@ -47,6 +47,9 @@ def pizza_to_order(in_file, out_file):
         MAX_SLICES = int(in_file_ls[0].strip('\n').split()[0])
         PIZZA_ORDERED_LS = [int(x) for x in in_file_ls[1].strip('\n').split()] 
 
+        print('=' * len(f"The maximum number of slices allowed is {MAX_SLICES}."))
+        print(f"The maximum number of slices allowed is {MAX_SLICES}.") # print out max slices for evaluation
+        BENCHMARK = MAX_SLICES
         PIZZA_ORDERED_LS = list(enumerate(PIZZA_ORDERED_LS))
 
         for slices in PIZZA_ORDERED_LS[::-1]:
@@ -59,7 +62,8 @@ def pizza_to_order(in_file, out_file):
                 MAX_SLICES += slices[1] # sum back the previous slice
                 result_ls.pop() # pop the last item from the result list
                 continue # continue to the next iteration
-
+        print(f"The score for this data set is {BENCHMARK - MAX_SLICES}.")
+        # print(BENCHMARK - MAX_SLICES)
         submit(out_file, result_ls) #call the submit function 
 
 
@@ -83,14 +87,16 @@ def pizza_to_order(in_file, out_file):
 
 if __name__ == "__main__":
 
-    in_file = 'a_example.in'
-    out_file = 'a_example_out.txt'
-    pizza_to_order(in_file, out_file)    
+    # calculate the scores for this model. The score is calculated as the number of slices returned from the list of pizzas
+    input_data = ['a_example.in','b_small.in','c_medium.in','d_quite_big.in', 'e_also_big.in']
+
+    print('calculating from data set a to data set e')
+    print('-' * len('calculating from data set a to data set e'))
 
 
-
-
-
-
-
-          
+    for data in input_data:
+        print('\n\n')
+        in_file = data
+        out_file = data.split('.')[0] + '.txt'
+        print(f'Evaluating data set {data}')
+        pizza_to_order(in_file, out_file)  
